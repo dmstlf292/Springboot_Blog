@@ -23,7 +23,7 @@ let index={
 		$.ajax({//javascript object 들어와야한다@@@@@
             //회원가입 수행 요청
             type:"POST",
-            url:"/blog/api/user",
+            url:"/auth/joinProc",
             data : JSON.stringify(data),//이거시 바로 json 문자열이다@@@ + http body 데이터이다
             contentType:"application/json;charset=utf-8", //body 데이터가 어떤 타입인지 (MIME)
             //요청을 서버로해서 응답이 왔을때 기본적으로 모든 것이 문자열(생긴게 json 이라면) => javascript 오브젝트로 변경해준다
@@ -33,7 +33,7 @@ let index={
             alert("Success!")
             //alert(resp);
             console.log(resp);
-            location.href="/blog";
+            location.href="/";
         }).fail(function(error){
             //실패
             alert(JSON.stringify(error));
