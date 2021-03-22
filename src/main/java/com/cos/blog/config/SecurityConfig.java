@@ -3,6 +3,7 @@ package com.cos.blog.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,15 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private PrincipalDetailService principalDetailService;
 	
-	
-	
-	
 
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	
 	@Bean // IoC 가 된다@@
 	public BCryptPasswordEncoder encodePWD() {
 		//String encPassword =  new BCryptPasswordEncoder().encode("1234");
 		return new BCryptPasswordEncoder();
 	}
+	
 	
 	//시큐리티가 대신 로그인해주는데 password를 가로채기해서 해당 password가 뭘로 해쉬가 되어 회원가입이 되었는지 알아야 
 	//같은 해쉬로 암호화 해서 디비에 있는 해쉬랑 비교할 수 있다. 
@@ -42,11 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
 	}
-	
-	
-	
-	
-	
 	
 	
 	
