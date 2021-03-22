@@ -14,9 +14,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,8 +68,12 @@ public class Board {
 	
 	
 	@OneToMany(mappedBy="board", fetch=FetchType.EAGER)//한개의 게시글에 여러개의 답변 가지고 있음 , mappedBy가 적혀있으면 연관관계의 주인이 아니다  (난, FK가 아니예요 ) => 디비에 컬럼을 만들지 마세요..라는 뜻 
-	//그래서 FK 는 Board에 있는게  아니라 Reply테이블의 Board가 FK라는 뜻  
-	private List<Reply> reply;//중요 
+	//그래서 FK 는 Board에 있는게  아니라 Reply테이블의 Board가 FK라는 뜻 
+	
+	//무한참조 방지하기 위해서  @@JsonIgnoreProperties 사용 
+	@JsonIgnoreProperties({"board"})
+	@OrderBy("id desc")
+	private List<Reply> replys;//중요 
 	
 	
 	
