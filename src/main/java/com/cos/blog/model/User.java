@@ -35,7 +35,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)//프로젝트에서 연결된 디비에 넘버링 전략을 따라간다. (mysql : auto increment 사용하겠다는  )
 	private int id;//auto-increment
 	
-	@Column(nullable = false, length=30, unique=true)
+	@Column(nullable = false, length=200, unique=true)
 	private String username;
 	
 	@Column(nullable = false, length=100) // 해쉬로 비밀번호 암호화 할 것이라서 넉넉하게 잡

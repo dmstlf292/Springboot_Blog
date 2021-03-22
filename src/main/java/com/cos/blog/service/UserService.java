@@ -2,6 +2,10 @@ package com.cos.blog.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,20 @@ public class UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	
+	//회원찾기 함
+	@Transactional(readOnly=true)
+	public User 회원찾기 (String username) {
+		User user = userReposiroty.findByUsername(username).orElseGet(()->{
+			return new User();
+		});
+		return user;
+	}
+	
+	
+	
+	
 	
 	//회원가입 서비스 함수 
 	@Transactional
@@ -44,6 +62,13 @@ public class UserService {
 		String encPassword=encoder.encode(rawPassword);
 		persistance.setPassword(encPassword);
 		persistance.setEmail(user.getEmail());
+		
+		
+		
+		
+		
+		
+		
 		//회원수정 함수 종료시 = 서비스 종료 = 트랜잭션 종료 = 커밋이 자동으로 된다. 
 		//(영속화된 persistance 객체의 변화가 감지되면 더티체킹이 되어 update 문을 날려준다 )
 	}
