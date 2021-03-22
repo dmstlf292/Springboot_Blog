@@ -45,10 +45,10 @@ public class Board {
 	private String title;
 	
 	@Lob//대용량데이터일때 사용한다. 
-	private String content; // 섬머노트 라이브러 사용할것이다. html 태그가 섞여서 디자인이 된다. 글자용량이 엄청 커진다.
+	private String content; // summernote 라이브러 사용할것이다. html 태그가 섞여서 디자인이 된다. 글자용량이 엄청 커진다.
 	
 	
-	@ColumnDefault("0")//int라서 '' 사용하지 않는다. 
+	
 	private int count;//조회
 	
 	

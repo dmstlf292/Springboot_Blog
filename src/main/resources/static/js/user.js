@@ -3,6 +3,9 @@ let index={
 		$("#btn-save").on("click", ()=>{ //functions(){} 을 사용하지 않고 ()=>{}사용하는 이유 : this를 바인딩 하기 위해
 			this.save();
 		});
+		$("#btn-update").on("click", ()=>{ 
+			this.update();
+		});
 	},
 	
 	save : function(){
@@ -38,9 +41,29 @@ let index={
             //실패
             alert(JSON.stringify(error));
         }); //ajax통신을 이용해서 3개의 파라미터를 =데이터를 json 으로 변경하여 insert 요청하기 
+	},
+
+	update : function(){
+		let data ={
+			id:$("#id").val(),
+			password:$("#password").val(),
+			email:$("#email").val(),
+			
+		};
 		
-		
-		
+		$.ajax({
+            type:"PUT",
+            url:"/user",
+            data : JSON.stringify(data),
+            contentType:"application/json;charset=utf-8", 
+            dataType:"json" 
+		}).done(function(resp){
+            alert("Success!")
+            console.log(resp);
+            location.href="/";
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        }); 
 	}
 }
 
