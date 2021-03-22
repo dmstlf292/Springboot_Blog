@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import com.cos.blog.repository.UserRepository;
 
 
@@ -22,6 +24,10 @@ public class BoardService {
 	
 	@Autowired
 	private BoardRepository boardReposiroty;
+	
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 
 	
 	@Transactional
@@ -41,7 +47,7 @@ public class BoardService {
 	public Board 글상세보기(int id) {
 		return boardReposiroty.findById(id)
 				.orElseThrow(()->{
-					return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
+					return new IllegalArgumentException("Fail!");
 				});
 	}
 	
@@ -54,11 +60,26 @@ public class BoardService {
 	public void 글수정하기(int id, Board requestBoard) {
 		 Board board = boardReposiroty.findById(id)
 				 .orElseThrow(()->{
-						return new IllegalArgumentException("글 찾 실패 : 아이디를 찾을 수 없습니다.");
+						return new IllegalArgumentException("Fail!");
 					});//영속화 완료 
 		 board.setTitle(requestBoard.getTitle());
 		 board.setContent(requestBoard.getContent());
 		 //해당 함수로 종료시 (service가 종료될때) 트랜잭션이 종료된다. 이때 더티체킹이 일어나면서 자동 업뎃을 실행한다 (db 쪽으로 flush 된다)
 	}
+	
+	
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply ) {
+		Board board = boardReposiroty.findById(boardId).orElseThrow(()->{
+						return new IllegalArgumentException("Fail!");
+					});//영속화 완료 
+		
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		
+		replyRepository.save(requestReply);
+	}
+	
+	
 	
 }
