@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
@@ -28,6 +29,9 @@ public class BoardService {
 	
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	
 	@Transactional
@@ -69,15 +73,24 @@ public class BoardService {
 	
 	
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply ) {
-		Board board = boardReposiroty.findById(boardId).orElseThrow(()->{
+	public void 댓글쓰기(ReplySaveRequestDto replySveRequestDto) {
+		
+		User user = userRepository.findById(replySveRequestDto.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("Fail!");
+		});//영속화 완료 
+		
+		Board board = boardReposiroty.findById(replySveRequestDto.getBoardId()).orElseThrow(()->{
 						return new IllegalArgumentException("Fail!");
 					});//영속화 완료 
 		
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
+		Reply reply = Reply.builder()
+				.user(user)
+				.board(board)
+				.content(replySveRequestDto.getContent())
+				.build();
 		
-		replyRepository.save(requestReply);
+		
+		replyRepository.save(reply);
 	}
 	
 	
