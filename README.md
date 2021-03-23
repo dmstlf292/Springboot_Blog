@@ -6,8 +6,6 @@
 
 # 개발언어 및 환경
  * Springboot, Mysql
- 
-# 부족한점
 
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/73155839/112108027-0c068600-8bf3-11eb-9030-718941092161.png" align="center">
