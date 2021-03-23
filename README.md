@@ -1,8 +1,13 @@
 # Springboot_Blog
 
+# 프로젝트 소개 및 기능
+ * 스프링 부트를 활용한 간단한 블로그 
+ * Ajax를 이용하여 로그인 & 회원가입 구현 & 비밀번호 해쉬화 & kakao login / 게시글 작성(summernote이용), 삭제, 수정 / 페이징처리 / 댓글구현 / Spring Security 적용 
 
-
-
+# 개발언어 및 환경
+ * Springboot, Mysql
+ 
+# 부족한점
 
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/73155839/112108027-0c068600-8bf3-11eb-9030-718941092161.png" align="center">
