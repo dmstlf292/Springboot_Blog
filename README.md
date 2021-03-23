@@ -7,6 +7,8 @@
 # 개발언어 및 환경
  * Springboot, Mysql
 
+# 기능구현
+
 <p align="center">
 	<img src="https://user-images.githubusercontent.com/73155839/112108027-0c068600-8bf3-11eb-9030-718941092161.png" align="center">
 	<img src="https://user-images.githubusercontent.com/73155839/112108035-0dd04980-8bf3-11eb-9d5c-799afcf0667c.png" align="center">
