@@ -75,24 +75,25 @@ public class BoardService {
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySveRequestDto) {
 		
-		User user = userRepository.findById(replySveRequestDto.getUserId()).orElseThrow(()->{
-			return new IllegalArgumentException("Fail!");
-		});//영속화 완료 
+//		User user = userRepository.findById(replySveRequestDto.getUserId()).orElseThrow(()->{
+//			return new IllegalArgumentException("Fail!");
+//		});//영속화 완료 
+//		
+//		Board board = boardReposiroty.findById(replySveRequestDto.getBoardId()).orElseThrow(()->{
+//						return new IllegalArgumentException("Fail!");
+//					});//영속화 완료 
 		
-		Board board = boardReposiroty.findById(replySveRequestDto.getBoardId()).orElseThrow(()->{
-						return new IllegalArgumentException("Fail!");
-					});//영속화 완료 
-		
-		Reply reply = Reply.builder()
-				.user(user)
-				.board(board)
-				.content(replySveRequestDto.getContent())
-				.build();
+//		Reply reply = Reply.builder()
+//				.user(user)
+//				.board(board)
+//				.content(replySveRequestDto.getContent())
+//				.build();
 		
 		
-		replyRepository.save(reply);
+//		replyRepository.save(reply);
+		
+		int result = replyRepository.mSave(replySveRequestDto.getUserId(), replySveRequestDto.getBoardId(), replySveRequestDto.getContent());
+		//System.out.println(reply);//오브젝트를 출력하게 되면 자동으로 toString () 이 호출된다 
+		System.out.println("Board");
 	}
-	
-	
-	
 }
