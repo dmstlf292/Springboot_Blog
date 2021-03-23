@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -66,8 +67,8 @@ public class Board {
 	
 	
 	
-	
-	@OneToMany(mappedBy="board", fetch=FetchType.EAGER)//한개의 게시글에 여러개의 답변 가지고 있음 , mappedBy가 적혀있으면 연관관계의 주인이 아니다  (난, FK가 아니예요 ) => 디비에 컬럼을 만들지 마세요..라는 뜻 
+	//cascade=CascadeType.REMOVE -> board게시글 삭제하면 거기 댓글들도 같이 삭제하겠다는 뜻  
+	@OneToMany(mappedBy="board", fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)//한개의 게시글에 여러개의 답변 가지고 있음 , mappedBy가 적혀있으면 연관관계의 주인이 아니다  (난, FK가 아니예요 ) => 디비에 컬럼을 만들지 마세요..라는 뜻 
 	//그래서 FK 는 Board에 있는게  아니라 Reply테이블의 Board가 FK라는 뜻 
 	
 	//무한참조 방지하기 위해서  @@JsonIgnoreProperties 사용 

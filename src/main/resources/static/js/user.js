@@ -32,11 +32,12 @@ let index={
             //요청을 서버로해서 응답이 왔을때 기본적으로 모든 것이 문자열(생긴게 json 이라면) => javascript 오브젝트로 변경해준다
             dataType:"json" //요청을 서버로 해서 서버로부터 요청에 대한 응답이 왔을때 응답결과를 json으로 받는것 (응답이 오면 기본적으로 모든것이 String 문자열로 온다)
 		}).done(function(resp){
-            //성공
-            alert("Success!")
-            //alert(resp);
-            console.log(resp);
-            location.href="/";
+			if(resp.status ===500){
+				 alert("Fail!")
+			}else {
+				 alert("Success!");
+				 location.href="/";
+			}
         }).fail(function(error){
             //실패
             alert(JSON.stringify(error));
